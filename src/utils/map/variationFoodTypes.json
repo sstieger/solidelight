@@ -1,0 +1,670 @@
+{
+  "101-000": {
+    "id": "101-000",
+    "name": "American"
+  },
+  "101-001": {
+    "id": "101-001",
+    "name": "American-Californian"
+  },
+  "101-002": {
+    "id": "101-002",
+    "name": "American-Southwestern"
+  },
+  "101-003": {
+    "id": "101-003",
+    "name": "American-Barbecue/Southern"
+  },
+  "101-004": {
+    "id": "101-004",
+    "name": "American-Creole"
+  },
+  "101-020": {
+    "id": "101-020",
+    "name": "American-Southern"
+  },
+  "101-039": {
+    "id": "101-039",
+    "name": "American-Native American"
+  },
+  "101-040": {
+    "id": "101-040",
+    "name": "American-Soul Food"
+  },
+  "101-070": {
+    "id": "101-070",
+    "name": "American-Cajun"
+  },
+  "102-000": {
+    "id": "102-000",
+    "name": "Mexican"
+  },
+  "102-005": {
+    "id": "102-005",
+    "name": "Mexican-Yucateca"
+  },
+  "102-006": {
+    "id": "102-006",
+    "name": "Mexican-Oaxaquena"
+  },
+  "102-007": {
+    "id": "102-007",
+    "name": "Mexican-Veracruzana"
+  },
+  "102-008": {
+    "id": "102-008",
+    "name": "Mexican-Poblana"
+  },
+  "103-000": {
+    "id": "103-000",
+    "name": "Canadian"
+  },
+  "150-000": {
+    "id": "150-000",
+    "name": "Australian"
+  },
+  "151-000": {
+    "id": "151-000",
+    "name": "Hawaiian/Polynesian"
+  },
+  "152-000": {
+    "id": "152-000",
+    "name": "Caribbean"
+  },
+  "153-000": {
+    "id": "153-000",
+    "name": "Cuban"
+  },
+  "200-000": {
+    "id": "200-000",
+    "name": "Asian"
+  },
+  "201-000": {
+    "id": "201-000",
+    "name": "Chinese"
+  },
+  "201-009": {
+    "id": "201-009",
+    "name": "Chinese-Szechuan"
+  },
+  "201-010": {
+    "id": "201-010",
+    "name": "Chinese-Cantonese"
+  },
+  "201-041": {
+    "id": "201-041",
+    "name": "Chinese-Shanghai"
+  },
+  "201-042": {
+    "id": "201-042",
+    "name": "Chinese-Beijing"
+  },
+  "201-043": {
+    "id": "201-043",
+    "name": "Chinese-Hunan/Hubei"
+  },
+  "201-044": {
+    "id": "201-044",
+    "name": "Chinese-Jiangsu/Zhejiang"
+  },
+  "201-045": {
+    "id": "201-045",
+    "name": "Chinese-Shandong"
+  },
+  "201-046": {
+    "id": "201-046",
+    "name": "Chinese-Northeastern"
+  },
+  "201-047": {
+    "id": "201-047",
+    "name": "Chinese-Inner Mongolian"
+  },
+  "201-048": {
+    "id": "201-048",
+    "name": "Chinese-Yunnan/Guizhou"
+  },
+  "201-049": {
+    "id": "201-049",
+    "name": "Chinese-Taiwanese"
+  },
+  "201-050": {
+    "id": "201-050",
+    "name": "Chinese-Guangxi"
+  },
+  "201-051": {
+    "id": "201-051",
+    "name": "Chinese-Jiangxi"
+  },
+  "201-052": {
+    "id": "201-052",
+    "name": "Chinese-Northwestern"
+  },
+  "201-053": {
+    "id": "201-053",
+    "name": "Chinese-Porridge"
+  },
+  "201-054": {
+    "id": "201-054",
+    "name": "Chinese-Islamic"
+  },
+  "201-055": {
+    "id": "201-055",
+    "name": "Chinese-Hot Pot"
+  },
+  "202-000": {
+    "id": "202-000",
+    "name": "Indian"
+  },
+  "202-011": {
+    "id": "202-011",
+    "name": "Indian-Tandoori"
+  },
+  "202-012": {
+    "id": "202-012",
+    "name": "Indian-Punjabi"
+  },
+  "202-013": {
+    "id": "202-013",
+    "name": "Indian-Rajasthani"
+  },
+  "202-014": {
+    "id": "202-014",
+    "name": "Indian-Mughlai"
+  },
+  "202-015": {
+    "id": "202-015",
+    "name": "Indian-Bengali"
+  },
+  "202-016": {
+    "id": "202-016",
+    "name": "Indian-Goan"
+  },
+  "202-017": {
+    "id": "202-017",
+    "name": "Indian-Jain"
+  },
+  "202-018": {
+    "id": "202-018",
+    "name": "Indian-Konkani"
+  },
+  "202-019": {
+    "id": "202-019",
+    "name": "Indian-Gujarati"
+  },
+  "202-020": {
+    "id": "202-020",
+    "name": "Indian-Parsi"
+  },
+  "202-021": {
+    "id": "202-021",
+    "name": "Indian-South Indian"
+  },
+  "202-022": {
+    "id": "202-022",
+    "name": "Indian-Maharashtrian"
+  },
+  "202-023": {
+    "id": "202-023",
+    "name": "Indian-North Indian"
+  },
+  "202-024": {
+    "id": "202-024",
+    "name": "Indian-Malvani"
+  },
+  "202-025": {
+    "id": "202-025",
+    "name": "Indian-Hyderabadi"
+  },
+  "203-000": {
+    "id": "203-000",
+    "name": "Japanese"
+  },
+  "203-026": {
+    "id": "203-026",
+    "name": "Japanese-Sushi"
+  },
+  "203-030": {
+    "id": "203-030",
+    "name": "Japanese-Hibachi"
+  },
+  "204-000": {
+    "id": "204-000",
+    "name": "Southeast Asian"
+  },
+  "205-000": {
+    "id": "205-000",
+    "name": "Thai"
+  },
+  "206-000": {
+    "id": "206-000",
+    "name": "Vietnamese"
+  },
+  "207-000": {
+    "id": "207-000",
+    "name": "Korean"
+  },
+  "208-000": {
+    "id": "208-000",
+    "name": "Pakistani"
+  },
+  "209-000": {
+    "id": "209-000",
+    "name": "Malaysian"
+  },
+  "210-000": {
+    "id": "210-000",
+    "name": "Bruneian"
+  },
+  "211-000": {
+    "id": "211-000",
+    "name": "Indonesian"
+  },
+  "212-000": {
+    "id": "212-000",
+    "name": "Filipino"
+  },
+  "250-000": {
+    "id": "250-000",
+    "name": "Middle Eastern"
+  },
+  "251-000": {
+    "id": "251-000",
+    "name": "Azerbaijani"
+  },
+  "252-000": {
+    "id": "252-000",
+    "name": "Turkish"
+  },
+  "253-000": {
+    "id": "253-000",
+    "name": "Lebanese"
+  },
+  "254-000": {
+    "id": "254-000",
+    "name": "Yemeni"
+  },
+  "255-000": {
+    "id": "255-000",
+    "name": "Burmese"
+  },
+  "256-000": {
+    "id": "256-000",
+    "name": "Cambodian"
+  },
+  "257-000": {
+    "id": "257-000",
+    "name": "Singaporean"
+  },
+  "258-000": {
+    "id": "258-000",
+    "name": "Sri Lankan"
+  },
+  "259-000": {
+    "id": "259-000",
+    "name": "Tibetan"
+  },
+  "300-000": {
+    "id": "300-000",
+    "name": "European"
+  },
+  "301-000": {
+    "id": "301-000",
+    "name": "French"
+  },
+  "301-027": {
+    "id": "301-027",
+    "name": "French-Alsatian"
+  },
+  "301-028": {
+    "id": "301-028",
+    "name": "French-Auvergnate"
+  },
+  "301-029": {
+    "id": "301-029",
+    "name": "French-Basque"
+  },
+  "301-030": {
+    "id": "301-030",
+    "name": "French-Corse"
+  },
+  "301-031": {
+    "id": "301-031",
+    "name": "French-Lyonnaise"
+  },
+  "301-032": {
+    "id": "301-032",
+    "name": "French-Provencale"
+  },
+  "301-033": {
+    "id": "301-033",
+    "name": "French-Sud-ouest"
+  },
+  "302-000": {
+    "id": "302-000",
+    "name": "German"
+  },
+  "303-000": {
+    "id": "303-000",
+    "name": "Greek"
+  },
+  "304-000": {
+    "id": "304-000",
+    "name": "Italian"
+  },
+  "305-000": {
+    "id": "305-000",
+    "name": "Irish"
+  },
+  "306-000": {
+    "id": "306-000",
+    "name": "Austrian"
+  },
+  "307-000": {
+    "id": "307-000",
+    "name": "Belgian"
+  },
+  "308-000": {
+    "id": "308-000",
+    "name": "British Isles"
+  },
+  "309-000": {
+    "id": "309-000",
+    "name": "Dutch"
+  },
+  "310-000": {
+    "id": "310-000",
+    "name": "Swiss"
+  },
+  "311-000": {
+    "id": "311-000",
+    "name": "Spanish"
+  },
+  "311-034": {
+    "id": "311-034",
+    "name": "Spanish-Tapas"
+  },
+  "313-000": {
+    "id": "313-000",
+    "name": "Portuguese"
+  },
+  "314-000": {
+    "id": "314-000",
+    "name": "Maltese"
+  },
+  "315-000": {
+    "id": "315-000",
+    "name": "Sicilian"
+  },
+  "350-000": {
+    "id": "350-000",
+    "name": "Scandinavian"
+  },
+  "351-000": {
+    "id": "351-000",
+    "name": "Finnish"
+  },
+  "352-000": {
+    "id": "352-000",
+    "name": "Swedish"
+  },
+  "353-000": {
+    "id": "353-000",
+    "name": "Norwegian"
+  },
+  "354-000": {
+    "id": "354-000",
+    "name": "Danish"
+  },
+  "370-000": {
+    "id": "370-000",
+    "name": "East European"
+  },
+  "371-000": {
+    "id": "371-000",
+    "name": "Hungarian"
+  },
+  "372-000": {
+    "id": "372-000",
+    "name": "Mediterranean"
+  },
+  "373-000": {
+    "id": "373-000",
+    "name": "Baltic"
+  },
+  "374-000": {
+    "id": "374-000",
+    "name": "Belorusian"
+  },
+  "375-000": {
+    "id": "375-000",
+    "name": "Ukrainian"
+  },
+  "376-000": {
+    "id": "376-000",
+    "name": "Polish"
+  },
+  "377-000": {
+    "id": "377-000",
+    "name": "Russian"
+  },
+  "378-000": {
+    "id": "378-000",
+    "name": "Bohemian"
+  },
+  "379-000": {
+    "id": "379-000",
+    "name": "Balkan"
+  },
+  "380-000": {
+    "id": "380-000",
+    "name": "Caucasian"
+  },
+  "381-000": {
+    "id": "381-000",
+    "name": "Romanian"
+  },
+  "382-000": {
+    "id": "382-000",
+    "name": "Armenian"
+  },
+  "400-000": {
+    "id": "400-000",
+    "name": "South American"
+  },
+  "401-000": {
+    "id": "401-000",
+    "name": "Surinamese"
+  },
+  "402-000": {
+    "id": "402-000",
+    "name": "Venezuelan"
+  },
+  "403-000": {
+    "id": "403-000",
+    "name": "Latin American"
+  },
+  "404-000": {
+    "id": "404-000",
+    "name": "Argentinean"
+  },
+  "405-000": {
+    "id": "405-000",
+    "name": "Chilean"
+  },
+  "406-000": {
+    "id": "406-000",
+    "name": "Brazilian"
+  },
+  "406-035": {
+    "id": "406-035",
+    "name": "Brazilian-Baiana"
+  },
+  "406-036": {
+    "id": "406-036",
+    "name": "Brazilian-Capixaba"
+  },
+  "406-037": {
+    "id": "406-037",
+    "name": "Brazilian-Mineira"
+  },
+  "406-038": {
+    "id": "406-038",
+    "name": "Brazilian-Bakery"
+  },
+  "407-000": {
+    "id": "407-000",
+    "name": "Peruvian"
+  },
+  "500-000": {
+    "id": "500-000",
+    "name": "African"
+  },
+  "501-000": {
+    "id": "501-000",
+    "name": "Moroccan"
+  },
+  "502-000": {
+    "id": "502-000",
+    "name": "Egyptian"
+  },
+  "503-000": {
+    "id": "503-000",
+    "name": "Ethiopian"
+  },
+  "504-000": {
+    "id": "504-000",
+    "name": "Seychellois"
+  },
+  "505-000": {
+    "id": "505-000",
+    "name": "South African"
+  },
+  "506-000": {
+    "id": "506-000",
+    "name": "North African"
+  },
+  "600-000": {
+    "id": "600-000",
+    "name": "Oceanic"
+  },
+  "800-056": {
+    "id": "800-056",
+    "name": "Steak House"
+  },
+  "800-057": {
+    "id": "800-057",
+    "name": "Pizza"
+  },
+  "800-058": {
+    "id": "800-058",
+    "name": "Snacks and Beverages"
+  },
+  "800-059": {
+    "id": "800-059",
+    "name": "Hot Dogs"
+  },
+  "800-060": {
+    "id": "800-060",
+    "name": "Sandwich"
+  },
+  "800-061": {
+    "id": "800-061",
+    "name": "Breakfast"
+  },
+  "800-062": {
+    "id": "800-062",
+    "name": "Chicken"
+  },
+  "800-063": {
+    "id": "800-063",
+    "name": "Ice Cream"
+  },
+  "800-064": {
+    "id": "800-064",
+    "name": "International"
+  },
+  "800-065": {
+    "id": "800-065",
+    "name": "Continental"
+  },
+  "800-066": {
+    "id": "800-066",
+    "name": "Fusion"
+  },
+  "800-067": {
+    "id": "800-067",
+    "name": "Burgers"
+  },
+  "800-068": {
+    "id": "800-068",
+    "name": "Creperie"
+  },
+  "800-069": {
+    "id": "800-069",
+    "name": "Pastries"
+  },
+  "800-071": {
+    "id": "800-071",
+    "name": "Fondue"
+  },
+  "800-072": {
+    "id": "800-072",
+    "name": "Brunch"
+  },
+  "800-073": {
+    "id": "800-073",
+    "name": "Bistro"
+  },
+  "800-074": {
+    "id": "800-074",
+    "name": "BrewPub"
+  },
+  "800-075": {
+    "id": "800-075",
+    "name": "Seafood"
+  },
+  "800-076": {
+    "id": "800-076",
+    "name": "Vegan"
+  },
+  "800-077": {
+    "id": "800-077",
+    "name": "Vegetarian"
+  },
+  "800-078": {
+    "id": "800-078",
+    "name": "Grill"
+  },
+  "800-079": {
+    "id": "800-079",
+    "name": "Jewish/Kosher"
+  },
+  "800-080": {
+    "id": "800-080",
+    "name": "Soup"
+  },
+  "800-081": {
+    "id": "800-081",
+    "name": "Lunch"
+  },
+  "800-082": {
+    "id": "800-082",
+    "name": "Dinner"
+  },
+  "800-083": {
+    "id": "800-083",
+    "name": "Natural/Healthy"
+  },
+  "800-084": {
+    "id": "800-084",
+    "name": "Organic"
+  },
+  "800-085": {
+    "id": "800-085",
+    "name": "Noodles"
+  },
+  "800-086": {
+    "id": "800-086",
+    "name": "Halal"
+  }
+}

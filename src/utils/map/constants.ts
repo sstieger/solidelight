@@ -1,0 +1,1 @@
+export const EAT_AND_DRINK_CATEGORY_PREFIX = '100-';

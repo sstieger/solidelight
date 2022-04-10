@@ -1,0 +1,7 @@
+{
+  "name": "Solidelight",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

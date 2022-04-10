@@ -1,0 +1,49 @@
+.app-content-centered-vertically {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.app-content-fullscreen {
+  width: 100%;
+  height: 100%;
+}
+
+.small-padding-vertical {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.large-icon {
+  font-size: 2em;
+}
+
+ion-list.padded-items-list {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+ion-list.padded-items-list ion-item {
+  --inner-padding-top: 8px;
+  --inner-padding-bottom: 8px;
+}
+
+html,
+body {
+  overscroll-behavior-x: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
