@@ -1,5 +1,5 @@
 <template>
-  <ion-input :required="required" :disabled="disabled" :value="modelValue?.title" @click="openSelectModal()" />
+  <ion-input :required="required" :disabled="disabled" :value="modelValue?.title" @focusin="openSelectModal()" />
   <ion-modal :is-open="selectModalIsOpen" @didDismiss="closeSelectModal()">
     <ion-content fullscreen>
       <ion-header translucent>
