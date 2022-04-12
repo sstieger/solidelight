@@ -17,8 +17,6 @@
       </template>
     </ion-list>
     <div class="ion-margin-top" v-if="openingHours?.length"></div>
-    <div class="ion-margin-top">{{ $props.place.contacts.phone }}</div>
-    <div class="ion-margin-top">{{ $props.place.contacts.www }}</div>
   </template>
 </template>
 
