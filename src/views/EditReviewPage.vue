@@ -3,7 +3,7 @@
     <form @submit.prevent="saveReview()">
       <app-header :title="title" default-back-href="/myReviews">
         <template v-slot:buttons>
-          <ion-button type="submit" :disabled="!formIsValid">
+          <ion-button type="submit" :disabled="!formIsValid || isSavingReview">
             <ion-icon slot="icon-only" :icon="save"></ion-icon>
           </ion-button>
         </template>
@@ -66,9 +66,10 @@ interface Data {
   place: Place | null;
   rating: FullStars;
   review: string;
+  isSavingReview: boolean;
 }
 
-const initialData: Data = {
+const initialData: Omit<Data, 'isSavingReview'> = {
   place: null,
   rating: 3,
   review: '',
@@ -108,7 +109,7 @@ export default defineComponent({
     },
   },
   data(): Data {
-    return { ...initialData };
+    return { ...initialData, isSavingReview: false };
   },
   async ionViewWillEnter() {
     this.place = initialData.place;
@@ -160,10 +161,13 @@ export default defineComponent({
         review: this.review ? this.review : null,
       };
       try {
+        this.isSavingReview = true;
         await this.$store.dispatch(ADD_OWN_REVIEW_ACTION, { review, place: this.place });
         await this.$router.push('/myReviews');
       } catch {
         await showErrorToast('Saving review failed, please check your connection.');
+      } finally {
+        this.isSavingReview = false;
       }
     },
     async updateReview(): Promise<void> {
@@ -180,10 +184,13 @@ export default defineComponent({
           review: this.review,
         };
         try {
+          this.isSavingReview = true;
           await this.$store.dispatch(UPDATE_OWN_REVIEW_ACTION, updatedReview);
           await this.$router.push('/myReviews');
         } catch {
           await showErrorToast('Updating review failed, please check your connection.');
+        } finally {
+          this.isSavingReview = false;
         }
       }
     },
