@@ -1,31 +1,27 @@
 <template>
   <div class="ion-text-center small-padding-vertical">
-    <ion-note v-if="lastUpdated">Last updated: {{ lastUpdated }}</ion-note>
+    <IonNote v-if="lastUpdated">Last updated: {{ lastUpdated }}</IonNote>
   </div>
-  <ion-list class="padded-items-list">
-    <suggested-places-list-item v-for="place in suggestedPlaces" v-bind:key="place.id" :place="place" />
-  </ion-list>
+  <IonList class="padded-items-list">
+    <SuggestedPlacesListItem v-for="place in suggestedPlaces" v-bind:key="place.id" :place="place" />
+  </IonList>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonList, IonNote } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
-import { mapState } from 'vuex';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
 import { State } from '@/store/state';
 import { getLocalDateStr } from '@/utils/date/getLocalDateStr';
 
 import SuggestedPlacesListItem from './SuggestedPlacesListItem.vue';
 
-export default defineComponent({
-  name: 'SuggestedPlacesList',
-  components: { IonList, IonNote, SuggestedPlacesListItem },
-  computed: mapState<State>({
-    lastUpdated: (state: State): string | null => {
-      const timestamp = state.recommend.suggestedPlacesMetaInfo?.geolocationTimestamp;
-      return timestamp ? getLocalDateStr(new Date(timestamp)) : null;
-    },
-    suggestedPlaces: (state: State) => state.recommend.suggestedPlaces,
-  }),
+const store = useStore<State>();
+
+const lastUpdated = computed<string | null>(() => {
+  const timestamp = store.state.recommend.suggestedPlacesMetaInfo?.geolocationTimestamp;
+  return timestamp ? getLocalDateStr(new Date(timestamp)) : null;
 });
+const suggestedPlaces = computed(() => store.state.recommend.suggestedPlaces);
 </script>

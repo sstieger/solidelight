@@ -1,40 +1,40 @@
 <template>
-  <ion-page>
+  <IonPage>
     <form @submit.prevent="saveReview()">
-      <app-header :title="title" default-back-href="/myReviews">
+      <AppHeader :title="title" defaultBackHref="/myReviews">
         <template v-slot:buttons>
-          <ion-button type="submit" :disabled="!formIsValid || isSavingReview">
-            <ion-icon slot="icon-only" :icon="save"></ion-icon>
-          </ion-button>
+          <IonButton type="submit" :disabled="!formIsValid || isSavingReview">
+            <IonIcon slot="icon-only" :icon="save" />
+          </IonButton>
         </template>
-      </app-header>
-      <ion-content fullscreen>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-item-group>
-                <ion-item>
-                  <ion-label position="fixed">Place *</ion-label>
-                  <place-select required :disabled="mode === 'edit'" v-model="place" />
-                </ion-item>
-                <ion-item>
-                  <ion-label>Rating *</ion-label>
-                  <rating-stars-input v-model="rating" />
-                </ion-item>
-                <ion-item>
-                  <ion-label position="floating">Review</ion-label>
-                  <ion-textarea auto-grow rows="5" v-model="review" />
-                </ion-item>
-              </ion-item-group>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-content>
+      </AppHeader>
+      <IonContent fullscreen>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonItemGroup>
+                <IonItem>
+                  <IonLabel position="fixed">Place *</IonLabel>
+                  <PlaceSelect required :disabled="mode === 'edit'" v-model="formData.place" />
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Rating *</IonLabel>
+                  <RatingStarsInput v-model="formData.rating" />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position="floating">Review</IonLabel>
+                  <IonTextarea auto-grow rows="5" v-model="formData.review" />
+                </IonItem>
+              </IonItemGroup>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+      </IonContent>
     </form>
-  </ion-page>
+  </IonPage>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {
   IonButton,
   IonCol,
@@ -47,9 +47,13 @@ import {
   IonPage,
   IonRow,
   IonTextarea,
+  onIonViewWillEnter,
+  useIonRouter,
 } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
 import { save } from 'ionicons/icons';
+import { computed, reactive, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 
 import AppHeader from '@/components/common/AppHeader.vue';
 import PlaceSelect from '@/components/reviews/PlaceSelect.vue';
@@ -60,140 +64,103 @@ import { Place } from '@/model/Place';
 import { PlaceReview } from '@/model/PlaceReview';
 import { PlaceReviewWithoutPlaceUrl } from '@/model/PlaceReviewWithoutPlaceUrl';
 import { ADD_OWN_REVIEW_ACTION, UPDATE_OWN_REVIEW_ACTION } from '@/store/recommend/actions';
+import { State } from '@/store/state';
 import { showErrorToast } from '@/utils/app/notify/showErrorToast';
 
-interface Data {
+const ionRouter = useIonRouter();
+const route = useRoute();
+const store = useStore<State>();
+
+interface FormData {
   place: Place | null;
   rating: FullStars;
   review: string;
-  isSavingReview: boolean;
 }
-
-const initialData: Omit<Data, 'isSavingReview'> = {
+const initialFormData: FormData = {
   place: null,
   rating: 3,
   review: '',
 };
+const formData = reactive<FormData>(initialFormData);
+const isSavingReview = ref(false);
 
-export default defineComponent({
-  components: {
-    AppHeader,
-    IonButton,
-    IonCol,
-    IonContent,
-    IonGrid,
-    IonIcon,
-    IonItem,
-    IonItemGroup,
-    IonLabel,
-    IonPage,
-    IonRow,
-    IonTextarea,
-    PlaceSelect,
-    RatingStarsInput,
-  },
-  setup() {
-    return {
-      save,
-    };
-  },
-  props: {
-    create: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    id: {
-      type: String,
-      required: false,
-    },
-  },
-  data(): Data {
-    return { ...initialData, isSavingReview: false };
-  },
-  async ionViewWillEnter() {
-    this.place = initialData.place;
-    this.rating = initialData.rating;
-    this.review = initialData.review;
-    if (this.mode === 'edit') {
-      const id = this.$route.params.id;
-      const review: PersistentPlaceReviewWithPlace | null = this.$store.getters.ownReviewById(id);
-      if (review) {
-        this.place = review.place;
-        this.rating = review.rating;
-        this.review = review.review ?? '';
-      }
+const title = computed(() => (mode.value === 'create' ? 'Create' : 'Edit') + ' Review');
+const mode = computed<'create' | 'edit'>(() => (route.params.id ? 'edit' : 'create'));
+const formIsValid = computed(() => formData.place !== null);
+
+onIonViewWillEnter(() => {
+  formData.place = initialFormData.place;
+  formData.rating = initialFormData.rating;
+  formData.review = initialFormData.review;
+  if (mode.value === 'edit') {
+    const id = route.params.id;
+    const review: PersistentPlaceReviewWithPlace | null = store.getters.ownReviewById(id);
+    if (review) {
+      formData.place = review.place;
+      formData.rating = review.rating;
+      formData.review = review.review ?? '';
     }
-  },
-  computed: {
-    title(): string {
-      return (this.mode === 'create' ? 'Create' : 'Edit') + ' Review';
-    },
-    mode(): 'create' | 'edit' {
-      return this.$route.params.id ? 'edit' : 'create';
-    },
-    formIsValid(): boolean {
-      return this.place !== null;
-    },
-  },
-  methods: {
-    async saveReview(): Promise<void> {
-      if (this.place === null) {
-        return;
-      }
-      if (this.mode === 'create') {
-        await this.createReview();
-      } else {
-        await this.updateReview();
-      }
-    },
-    async createReview(): Promise<void> {
-      if (this.place === null) {
-        return;
-      }
-      const date = new Date();
-      const solidProfile = this.$store.state.user.solidProfile;
-      const review: PlaceReviewWithoutPlaceUrl = {
-        dateCreated: date,
-        dateModified: date,
-        creatorWebId: solidProfile.webId,
-        rating: this.rating as FullStars,
-        review: this.review ? this.review : null,
-      };
-      try {
-        this.isSavingReview = true;
-        await this.$store.dispatch(ADD_OWN_REVIEW_ACTION, { review, place: this.place });
-        await this.$router.push('/myReviews');
-      } catch {
-        await showErrorToast('Saving review failed, please check your connection.');
-      } finally {
-        this.isSavingReview = false;
-      }
-    },
-    async updateReview(): Promise<void> {
-      if (this.place === null) {
-        return;
-      }
-      const id = this.$route.params.id;
-      const review: PlaceReview | null = this.$store.getters.ownReviewById(id);
-      if (review) {
-        const updatedReview: PlaceReview = {
-          ...review,
-          dateModified: new Date(),
-          rating: this.rating as FullStars,
-          review: this.review,
-        };
-        try {
-          this.isSavingReview = true;
-          await this.$store.dispatch(UPDATE_OWN_REVIEW_ACTION, updatedReview);
-          await this.$router.push('/myReviews');
-        } catch {
-          await showErrorToast('Updating review failed, please check your connection.');
-        } finally {
-          this.isSavingReview = false;
-        }
-      }
-    },
-  },
+  }
 });
+
+const saveReview = async (): Promise<void> => {
+  if (formData.place === null) {
+    return;
+  }
+  if (mode.value === 'create') {
+    await createReview();
+  } else {
+    await updateReview();
+  }
+};
+const createReview = async (): Promise<void> => {
+  if (formData.place === null) {
+    return;
+  }
+  const date = new Date();
+  const solidProfile = store.state.user.solidProfile;
+  if (!solidProfile) {
+    return;
+  }
+  const review: PlaceReviewWithoutPlaceUrl = {
+    dateCreated: date,
+    dateModified: date,
+    creatorWebId: solidProfile.webId,
+    rating: formData.rating as FullStars,
+    review: formData.review ? formData.review : null,
+  };
+  try {
+    isSavingReview.value = true;
+    await store.dispatch(ADD_OWN_REVIEW_ACTION, { review, place: formData.place });
+    ionRouter.push('/myReviews');
+  } catch {
+    await showErrorToast('Saving review failed, please check your connection.');
+  } finally {
+    isSavingReview.value = false;
+  }
+};
+const updateReview = async (): Promise<void> => {
+  if (formData.place === null) {
+    return;
+  }
+  const id = route.params.id;
+  const review: PlaceReview | null = store.getters.ownReviewById(id);
+  if (review) {
+    const updatedReview: PlaceReview = {
+      ...review,
+      dateModified: new Date(),
+      rating: formData.rating as FullStars,
+      review: formData.review ? formData.review : null,
+    };
+    try {
+      isSavingReview.value = true;
+      await store.dispatch(UPDATE_OWN_REVIEW_ACTION, updatedReview);
+      ionRouter.push('/myReviews');
+    } catch {
+      await showErrorToast('Updating review failed, please check your connection.');
+    } finally {
+      isSavingReview.value = false;
+    }
+  }
+};
 </script>

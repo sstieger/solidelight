@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { IonItem, IonLabel, IonList, IonListHeader } from '@ionic/vue';
-import { computed } from '@vue/reactivity';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import { State } from '@/store/state';

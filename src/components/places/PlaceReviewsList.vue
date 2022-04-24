@@ -1,31 +1,24 @@
 <template>
-  <ion-list class="padded-items-list">
-    <place-reviews-list-item v-for="review in sortedReviews" v-bind:key="review.id" :review="review" />
-  </ion-list>
+  <IonList class="padded-items-list">
+    <PlaceReviewsListItem v-for="review in sortedReviews" v-bind:key="review.id" :review="review" />
+  </IonList>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonList } from '@ionic/vue';
-import { PropType, defineComponent } from '@vue/runtime-core';
+import { computed, defineProps } from 'vue';
 
 import { PlaceReview } from '@/model/PlaceReview';
 import { sortArrayByDateFieldDesc } from '@/utils/sort/sortArrayByDateFieldDesc';
 
 import PlaceReviewsListItem from './PlaceReviewsListItem.vue';
 
-export default defineComponent({
-  name: 'PlaceReviewsList',
-  components: { IonList, PlaceReviewsListItem },
-  props: {
-    reviews: {
-      type: Object as PropType<PlaceReview[]>,
-      required: true,
-    },
-  },
-  computed: {
-    sortedReviews(): PlaceReview[] {
-      return sortArrayByDateFieldDesc(this.reviews, (review: PlaceReview) => review.dateModified);
-    },
-  },
-});
+interface Props {
+  reviews: PlaceReview[];
+}
+const props = defineProps<Props>();
+
+const sortedReviews = computed(() =>
+  sortArrayByDateFieldDesc(props.reviews, (review: PlaceReview) => review.dateModified),
+);
 </script>

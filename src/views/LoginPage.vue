@@ -1,22 +1,17 @@
 <template>
-  <ion-page>
-    <app-header title="Login" :show-back-button="false" />
-    <ion-content>
+  <IonPage>
+    <AppHeader title="Login" :showBackButton="false" />
+    <IonContent>
       <div class="app-content-centered-vertically">
-        <login-form />
+        <LoginForm />
       </div>
-    </ion-content>
-  </ion-page>
+    </IonContent>
+  </IonPage>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonContent, IonPage } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
 
 import AppHeader from '@/components/common/AppHeader.vue';
 import LoginForm from '@/components/login/LoginForm.vue';
-
-export default defineComponent({
-  components: { AppHeader, IonContent, IonPage, LoginForm },
-});
 </script>

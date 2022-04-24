@@ -1,49 +1,49 @@
 <template>
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="10">
+  <IonGrid>
+    <IonRow class="ion-justify-content-center">
+      <IonCol size="10">
         <form @submit.prevent="save()">
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label position="stacked">Pod</ion-label>
-                <ion-select v-model="pod" interface="action-sheet">
-                  <ion-select-option v-for="availablePod in availablePods" v-bind:key="availablePod">
+          <IonRow>
+            <IonCol>
+              <IonItem>
+                <IonLabel position="stacked">Pod</IonLabel>
+                <IonSelect v-model="pod" interface="action-sheet">
+                  <IonSelectOption v-for="availablePod in availablePods" v-bind:key="availablePod">
                     {{ availablePod }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label position="stacked">Path</ion-label>
-                <ion-input v-model="path"></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label position="stacked">Public Sharing</ion-label>
-                <ion-checkbox v-model="publicReadAccess"></ion-checkbox>
-                <ion-note>Sharing your reviews allows other Solidelight users to find and read them.</ion-note>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col class="ion-text-center">
-              <ion-button type="submit" :disabled="!pathIsValid">Save</ion-button>
-            </ion-col>
-          </ion-row>
+                  </IonSelectOption>
+                </IonSelect>
+              </IonItem>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonItem>
+                <IonLabel position="stacked">Path</IonLabel>
+                <IonInput v-model="path"></IonInput>
+              </IonItem>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonItem>
+                <IonLabel position="stacked">Public Sharing</IonLabel>
+                <IonCheckbox v-model="publicReadAccess"></IonCheckbox>
+                <IonNote>Sharing your reviews allows other Solidelight users to find and read them.</IonNote>
+              </IonItem>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol class="ion-text-center">
+              <IonButton type="submit" :disabled="!pathIsValid">Save</IonButton>
+            </IonCol>
+          </IonRow>
         </form>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </IonCol>
+    </IonRow>
+  </IonGrid>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {
   IonButton,
   IonCheckbox,
@@ -56,54 +56,32 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
+  useIonRouter,
 } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
-import { mapState } from 'vuex';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 
 import { DEFAULT_PAGE_PATH } from '@/constants';
-import { State as RootState } from '@/store/state';
+import { State } from '@/store/state';
 import { SETUP_ACTION } from '@/store/user/actions';
 
-export default defineComponent({
-  name: 'SetupForm',
-  components: {
-    IonButton,
-    IonCheckbox,
-    IonCol,
-    IonGrid,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonNote,
-    IonRow,
-    IonSelect,
-    IonSelectOption,
-  },
-  data() {
-    const pods = this.$store.state.user.solidProfile?.pods;
-    return {
-      pod: pods && pods.length ? pods[0] : null,
-      path: '/solidelight',
-      publicReadAccess: true,
-    };
-  },
-  computed: {
-    pathIsValid(): boolean {
-      return this.pod !== null && !!this.path.replace('\\', '/').match('^(/)?([^/\0]+(/)?)+');
-    },
-    ...mapState<RootState>({
-      availablePods: (state: RootState) => state.user.solidProfile?.pods ?? [],
-    }),
-  },
-  methods: {
-    async save(): Promise<void> {
-      await this.$store.dispatch(SETUP_ACTION, {
-        pod: this.pod,
-        path: this.path.replace('\\', '/'),
-        publicReadAccess: this.publicReadAccess,
-      });
-      await this.$router.push(DEFAULT_PAGE_PATH);
-    },
-  },
-});
+const ionRouter = useIonRouter();
+const store = useStore<State>();
+
+const pods = store.state.user.solidProfile?.pods;
+const pod = ref(pods && pods.length ? pods[0] : null);
+const path = ref('/solidelight');
+const publicReadAccess = ref(true);
+
+const pathIsValid = computed(() => pod.value !== null && !!path.value.replace('\\', '/').match('^(/)?([^/\0]+(/)?)+'));
+const availablePods = computed(() => store.state.user.solidProfile?.pods ?? []);
+
+const save = async (): Promise<void> => {
+  await store.dispatch(SETUP_ACTION, {
+    pod: pod.value,
+    path: path.value.replace('\\', '/'),
+    publicReadAccess: publicReadAccess.value,
+  });
+  ionRouter.push(DEFAULT_PAGE_PATH);
+};
 </script>

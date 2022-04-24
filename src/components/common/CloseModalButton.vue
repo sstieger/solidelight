@@ -1,22 +1,17 @@
 <template>
-  <ion-buttons slot="end">
-    <ion-button @click="$emit('click', $event)">
-      <ion-icon slot="icon-only" :icon="close"></ion-icon>
-    </ion-button>
-  </ion-buttons>
+  <IonButtons slot="end">
+    <IonButton @click="$emit('click', $event)">
+      <IonIcon slot="icon-only" :icon="close" />
+    </IonButton>
+  </IonButtons>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonButton, IonButtons, IonIcon } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
 import { close } from 'ionicons/icons';
+import { defineEmits } from 'vue';
 
-export default defineComponent({
-  name: 'CloseModalButton',
-  components: { IonButton, IonButtons, IonIcon },
-  setup() {
-    return { close };
-  },
-  emits: ['click'],
-});
+defineEmits<{
+  (e: 'click', event: any): void;
+}>();
 </script>

@@ -1,47 +1,26 @@
 <template>
-  <ion-page>
-    <ion-tabs>
-      <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="discover" href="/discover">
-          <ion-icon :icon="search" />
-          <ion-label>Discover</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="myReviews" href="/myReviews">
-          <ion-icon :icon="starHalf" />
-          <ion-label>My Reviews</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="tasteProfile" href="/tasteProfile">
-          <ion-icon :icon="person" />
-          <ion-label>Taste Profile</ion-label>
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
-  </ion-page>
+  <IonPage>
+    <IonTabs>
+      <IonRouterOutlet />
+      <IonTabBar slot="bottom">
+        <IonTabButton tab="discover" href="/discover">
+          <IonIcon :icon="search" />
+          <IonLabel>Discover</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="myReviews" href="/myReviews">
+          <IonIcon :icon="starHalf" />
+          <IonLabel>My Reviews</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="tasteProfile" href="/tasteProfile">
+          <IonIcon :icon="person" />
+          <IonLabel>Taste Profile</IonLabel>
+        </IonTabButton>
+      </IonTabBar>
+    </IonTabs>
+  </IonPage>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonIcon, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
-import { person, personCircle, search, starHalf } from 'ionicons/icons';
-
-export default defineComponent({
-  components: {
-    IonLabel,
-    IonTabs,
-    IonTabBar,
-    IonTabButton,
-    IonIcon,
-    IonPage,
-    IonRouterOutlet,
-  },
-  setup() {
-    return {
-      person,
-      personCircle,
-      starHalf,
-      search,
-    };
-  },
-});
+import { person, search, starHalf } from 'ionicons/icons';
 </script>

@@ -1,55 +1,41 @@
 <template>
-  <ion-item>
+  <IonItem>
     <div>
       <div>
-        <ion-note>{{ lastModifiedDateLocalStr }}</ion-note>
+        <IonNote>{{ lastModifiedDateLocalStr }}</IonNote>
       </div>
-      <div><rating-stars :stars="review.rating" /></div>
+      <div><RatingStars :stars="review.rating" /></div>
       <div v-if="authorName">
-        <ion-note>{{ authorName }}</ion-note>
+        <IonNote>{{ authorName }}</IonNote>
       </div>
       <div class="review" v-if="review.review">
-        <ion-note>{{ review.review }}</ion-note>
+        <IonNote>{{ review.review }}</IonNote>
       </div>
     </div>
-  </ion-item>
+  </IonItem>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonItem, IonNote } from '@ionic/vue';
-import { PropType, defineComponent } from '@vue/runtime-core';
-import { mapGetters } from 'vuex';
+import { computed, defineProps } from 'vue';
+import { useStore } from 'vuex';
 
 import RatingStars from '@/components/ratings/RatingStars.vue';
 import { PlaceReview } from '@/model/PlaceReview';
+import { State } from '@/store/state';
 import { getLocalDateStr } from '@/utils/date/getLocalDateStr';
 
-interface Data {
-  name: string | null;
-}
+const store = useStore<State>();
 
-export default defineComponent({
-  name: 'PlaceReviewsListItem',
-  components: { IonItem, IonNote, RatingStars },
-  data(): Data {
-    return { name: null };
-  },
-  props: {
-    review: {
-      type: Object as PropType<PlaceReview>,
-      required: true,
-    },
-  },
-  computed: {
-    lastModifiedDateLocalStr(): string {
-      return getLocalDateStr(this.$props.review.dateModified);
-    },
-    authorName(): string | null {
-      return this.suggestedPlaceReviewerById(this.$props.review.creatorWebId)?.name;
-    },
-    ...mapGetters(['suggestedPlaceReviewerById']),
-  },
-});
+interface Props {
+  review: PlaceReview;
+}
+const props = defineProps<Props>();
+
+const lastModifiedDateLocalStr = computed(() => getLocalDateStr(props.review.dateModified));
+const authorName = computed<{ id: string; name: string | null }[] | null>(
+  () => store.getters.suggestedPlaceReviewerById(props.review.creatorWebId)?.name,
+);
 </script>
 
 <style scoped>

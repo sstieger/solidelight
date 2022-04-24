@@ -1,24 +1,17 @@
 <template>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button @click="$emit('click')">
-      <ion-icon :icon="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <IonFab vertical="bottom" horizontal="end" slot="fixed">
+    <IonFabButton @click="$emit('click', $event)">
+      <IonIcon :icon="add" />
+    </IonFabButton>
+  </IonFab>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonFab, IonFabButton, IonIcon } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
 import { add } from 'ionicons/icons';
+import { defineEmits } from 'vue';
 
-export default defineComponent({
-  name: 'CreateFab',
-  components: { IonFab, IonFabButton, IonIcon },
-  setup() {
-    return {
-      add,
-    };
-  },
-  emits: ['click'],
-});
+defineEmits<{
+  (e: 'click', event: any): void;
+}>();
 </script>

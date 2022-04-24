@@ -1,47 +1,32 @@
 <template>
-  <ion-button fill="clear" v-for="n in filledStars" v-bind:key="n" @click="setValue(n)">
-    <ion-icon slot="icon-only" :icon="star" />
-  </ion-button>
-  <ion-button fill="clear" v-for="n in emptyStars" v-bind:key="n" @click="setValue(filledStars + n)">
-    <ion-icon slot="icon-only" :icon="starOutline" />
-  </ion-button>
+  <IonButton fill="clear" v-for="n in filledStars" v-bind:key="n" @click="setValue(n as FullStars)">
+    <IonIcon slot="icon-only" :icon="star" />
+  </IonButton>
+  <IonButton fill="clear" v-for="n in emptyStars" v-bind:key="n" @click="setValue(filledStars + n)">
+    <IonIcon slot="icon-only" :icon="starOutline" />
+  </IonButton>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonButton, IonIcon } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
 import { star, starOutline } from 'ionicons/icons';
+import { computed, defineEmits, defineProps } from 'vue';
 
 import { FullStars } from '@/model/FullStars';
 
-export default defineComponent({
-  name: 'RatingStarsInput',
-  components: {
-    IonButton,
-    IonIcon,
-  },
-  setup() {
-    return { star, starOutline };
-  },
-  emits: ['update:modelValue'],
-  props: {
-    modelValue: {
-      type: Number,
-      required: true,
-    },
-  },
-  methods: {
-    setValue(value: FullStars): void {
-      this.$emit('update:modelValue', value);
-    },
-  },
-  computed: {
-    filledStars(): number {
-      return Math.floor(this.modelValue);
-    },
-    emptyStars(): number {
-      return 5 - this.filledStars;
-    },
-  },
-});
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: FullStars): void;
+}>();
+
+interface Props {
+  modelValue: FullStars;
+}
+const props = defineProps<Props>();
+
+const filledStars = computed(() => props.modelValue);
+const emptyStars = computed(() => 5 - filledStars.value);
+
+const setValue = (value: FullStars): void => {
+  emit('update:modelValue', value);
+};
 </script>

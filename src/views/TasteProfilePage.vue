@@ -2,7 +2,7 @@
   <IonPage>
     <AppHeader title="Taste Profile" :showBackButton="false" showSettingsButton>
       <template v-slot:buttons>
-        <IonButton router-link="/tasteProfileHelp">
+        <IonButton routerLink="/tasteProfileHelp">
           <IonIcon slot="icon-only" :icon="help" />
         </IonButton>
       </template>
@@ -19,8 +19,8 @@
 
 <script setup lang="ts">
 import { IonButton, IonContent, IonIcon, IonPage } from '@ionic/vue';
-import { computed } from '@vue/reactivity';
 import { help } from 'ionicons/icons';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import AppHeader from '@/components/common/AppHeader.vue';

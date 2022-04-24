@@ -1,6 +1,8 @@
+import { HalfStars } from '@/model/HalfStars';
+
 export interface Stats {
   numberOfReviewsDescription: string;
   averageRating: number;
-  averageRatingHalfStars: number;
+  averageRatingHalfStars: HalfStars;
   averageRatingStr: string;
 }

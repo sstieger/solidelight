@@ -1,21 +1,21 @@
 <template>
-  <ion-page>
-    <app-header title="My Reviews" :show-back-button="false" show-settings-button />
-    <ion-content fullscreen>
-      <ion-refresher slot="fixed" @ionRefresh="refresh">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
-      <own-reviews-list v-if="ownReviews.length" />
-      <no-own-reviews v-else />
-      <create-fab router-link="/myReviews/new" />
-    </ion-content>
-  </ion-page>
+  <IonPage>
+    <AppHeader title="My Reviews" :showBackButton="false" showSettingsButton />
+    <IonContent fullscreen>
+      <IonRefresher slot="fixed" @ionRefresh="refresh">
+        <IonRefresherContent />
+      </IonRefresher>
+      <OwnReviewsList v-if="ownReviews.length" />
+      <NoOwnReviews v-else />
+      <CreateFab routerLink="/myReviews/new" />
+    </IonContent>
+  </IonPage>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonContent, IonPage, IonRefresher, IonRefresherContent, RefresherCustomEvent } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
-import { mapState } from 'vuex';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
 import AppHeader from '@/components/common/AppHeader.vue';
 import CreateFab from '@/components/common/CreateFab.vue';
@@ -25,24 +25,11 @@ import { FETCH_OWN_REVIEWS_ACTION } from '@/store/recommend/actions';
 import { State } from '@/store/state';
 import { refreshWithNotificationOnError } from '@/utils/app/refresh/refreshWithNotificationOnError';
 
-export default defineComponent({
-  components: {
-    AppHeader,
-    CreateFab,
-    IonContent,
-    IonPage,
-    IonRefresher,
-    IonRefresherContent,
-    NoOwnReviews,
-    OwnReviewsList,
-  },
-  computed: mapState<State>({
-    ownReviews: (state: State) => state.recommend.ownReviews,
-  }),
-  methods: {
-    async refresh(event: RefresherCustomEvent) {
-      await refreshWithNotificationOnError(event, () => this.$store.dispatch(FETCH_OWN_REVIEWS_ACTION));
-    },
-  },
-});
+const store = useStore<State>();
+
+const ownReviews = computed(() => store.state.recommend.ownReviews);
+
+const refresh = async (event: RefresherCustomEvent) => {
+  await refreshWithNotificationOnError(event, () => store.dispatch(FETCH_OWN_REVIEWS_ACTION));
+};
 </script>

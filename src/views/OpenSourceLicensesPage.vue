@@ -1,53 +1,35 @@
 <template>
-  <ion-page>
-    <app-header title="Open Source Licenses" />
-    <ion-content fullscreen class="ion-padding">
+  <IonPage>
+    <AppHeader title="Open Source Licenses" />
+    <IonContent fullscreen class="ion-padding">
       <div class="licenses-text">
         {{ licensesText }}
       </div>
-    </ion-content>
-  </ion-page>
+    </IonContent>
+  </IonPage>
 </template>
 
-<script lang="ts">
-import { IonContent, IonPage, modalController } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
+<script setup lang="ts">
+import { IonContent, IonPage } from '@ionic/vue';
+import { ref } from 'vue';
 
 import AppHeader from '@/components/common/AppHeader.vue';
 import { showErrorToast } from '@/utils/app/notify/showErrorToast';
 
-let licensesTextPromise: Promise<string> | null = null;
+const licensesText = ref('');
 
-export default defineComponent({
-  components: { AppHeader, IonContent, IonPage },
-  data() {
-    return {
-      modal: modalController,
-      licensesText: '',
-    };
-  },
-  beforeCreate() {
-    if (!licensesTextPromise) {
-      licensesTextPromise = fetchLicensesText();
-    }
-  },
-  created() {
-    if (licensesTextPromise) {
-      licensesTextPromise
-        .then((text) => (this.licensesText = text))
-        .catch(() => showErrorToast('Fetching the open source licenses was not possible.'));
-    }
-  },
-});
-
-async function fetchLicensesText(): Promise<string> {
+const fetchLicensesText = async (): Promise<string> => {
   const response = await fetch('/licenses.txt');
   if (response.status !== 200) {
     throw new Error('Licenses request failed');
   }
   const text = await response.text();
   return text;
-}
+};
+
+fetchLicensesText()
+  .then((text) => (licensesText.value = text))
+  .catch(() => showErrorToast('Fetching the open source licenses was not possible.'));
 </script>
 
 <style scoped>

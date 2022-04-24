@@ -1,28 +1,19 @@
 <template>
-  <ion-grid class="ion-text-center">
-    <ion-row>
-      <ion-col>
-        <ion-icon class="large-icon" :icon="glasses" />
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-note>No reviews found.</ion-note>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <IonGrid class="ion-text-center">
+    <IonRow>
+      <IonCol>
+        <IonIcon class="large-icon" :icon="glasses" />
+      </IonCol>
+    </IonRow>
+    <IonRow>
+      <IonCol>
+        <IonNote>No reviews found.</IonNote>
+      </IonCol>
+    </IonRow>
+  </IonGrid>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonCol, IonGrid, IonIcon, IonNote, IonRow } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
 import { glasses } from 'ionicons/icons';
-
-export default defineComponent({
-  name: 'NoPlaceReviews',
-  components: { IonCol, IonGrid, IonIcon, IonNote, IonRow },
-  setup() {
-    return { glasses };
-  },
-});
 </script>

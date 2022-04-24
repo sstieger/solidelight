@@ -1,20 +1,15 @@
 <template>
-  <ion-page>
-    <app-header title="Settings" />
-    <ion-content fullscreen>
-      <settings-list />
-    </ion-content>
-  </ion-page>
+  <IonPage>
+    <AppHeader title="Settings" />
+    <IonContent fullscreen>
+      <SettingsList />
+    </IonContent>
+  </IonPage>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonContent, IonPage } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
 
 import AppHeader from '@/components/common/AppHeader.vue';
 import SettingsList from '@/components/settings/SettingsList.vue';
-
-export default defineComponent({
-  components: { AppHeader, IonContent, IonPage, SettingsList },
-});
 </script>

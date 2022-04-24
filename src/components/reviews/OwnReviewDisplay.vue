@@ -1,61 +1,41 @@
 <template>
-  <template v-if="$props.review">
+  <template v-if="props.review">
     <div>
-      <ion-note>Created: {{ localDateCreatedStr }}</ion-note>
+      <IonNote>Created: {{ localDateCreatedStr }}</IonNote>
     </div>
     <div v-if="hasBeenModified">
-      <ion-note>Modified: {{ localDateModifiedStr }}</ion-note>
+      <IonNote>Modified: {{ localDateModifiedStr }}</IonNote>
     </div>
     <div class="rating-stars-container ion-margin-vertical">
-      <rating-stars :stars="review.rating" />
+      <RatingStars :stars="review.rating" />
     </div>
     <div class="ion-margin-vertical">
       <h3>{{ review.place.title }}</h3>
-      <ion-note>{{ review.place.address }}</ion-note>
+      <IonNote>{{ review.place.address }}</IonNote>
     </div>
     <p class="review" v-if="review.review">{{ review.review }}</p>
   </template>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonNote } from '@ionic/vue';
-import { PropType, defineComponent } from '@vue/runtime-core';
-import { arrowForward } from 'ionicons/icons';
+import { computed, defineProps } from 'vue';
 
 import RatingStars from '@/components/ratings/RatingStars.vue';
-import { PlaceReview } from '@/model/PlaceReview';
+import { PersistentPlaceReviewWithPlace } from '@/model/PersistentPlaceReviewWithPersistentPlace';
 import { getLocalDateStr } from '@/utils/date/getLocalDateStr';
 import { parseDateStr } from '@/utils/date/parseDateStr';
 
-export default defineComponent({
-  name: 'OwnReviewDisplay',
-  components: { IonNote, RatingStars },
-  setup() {
-    return {
-      arrowForward,
-    };
-  },
-  props: {
-    review: {
-      type: Object as PropType<PlaceReview>,
-      required: true,
-    },
-  },
-  computed: {
-    hasBeenModified(): boolean {
-      return (
-        parseDateStr(this.$props.review.dateCreated).getTime() !==
-        parseDateStr(this.$props.review.dateModified).getTime()
-      );
-    },
-    localDateCreatedStr(): string {
-      return getLocalDateStr(this.$props.review.dateCreated);
-    },
-    localDateModifiedStr(): string {
-      return getLocalDateStr(this.$props.review.dateModified);
-    },
-  },
-});
+interface Props {
+  review: PersistentPlaceReviewWithPlace;
+}
+const props = defineProps<Props>();
+
+const hasBeenModified = computed(
+  () => parseDateStr(props.review.dateCreated).getTime() !== parseDateStr(props.review.dateModified).getTime(),
+);
+const localDateCreatedStr = computed(() => getLocalDateStr(props.review.dateCreated));
+const localDateModifiedStr = computed(() => getLocalDateStr(props.review.dateModified));
 </script>
 
 <style scoped>

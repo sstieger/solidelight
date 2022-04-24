@@ -1,49 +1,38 @@
 <template>
-  <ion-item detail button :router-link="reviewPageUrl">
+  <IonItem detail button :routerLink="reviewPageUrl">
     <div>
       <div>
-        <ion-note>{{ lastModifiedDateLocalStr }}</ion-note>
+        <IonNote>{{ lastModifiedDateLocalStr }}</IonNote>
       </div>
-      <div><rating-stars :stars="review.rating" /></div>
+      <div><RatingStars :stars="review.rating" /></div>
       <div>
-        <ion-label>{{ review.place.title }}</ion-label>
+        <IonLabel>{{ review.place.title }}</IonLabel>
       </div>
       <div>
-        <ion-note>{{ review.place.address }}</ion-note>
+        <IonNote>{{ review.place.address }}</IonNote>
       </div>
       <div class="review" v-if="review.review">
-        <ion-note>{{ review.review }}</ion-note>
+        <IonNote>{{ review.review }}</IonNote>
       </div>
     </div>
-  </ion-item>
+  </IonItem>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonItem, IonLabel, IonNote } from '@ionic/vue';
-import { PropType, defineComponent } from '@vue/runtime-core';
+import { computed, defineProps } from 'vue';
 
 import RatingStars from '@/components/ratings/RatingStars.vue';
-import { PersistentPlaceReview } from '@/model/PersistentPlaceReview';
+import { PersistentPlaceReviewWithPlace } from '@/model/PersistentPlaceReviewWithPersistentPlace';
 import { getLocalDateStr } from '@/utils/date/getLocalDateStr';
 
-export default defineComponent({
-  name: 'ReviewsListItem',
-  components: { IonItem, IonLabel, IonNote, RatingStars },
-  props: {
-    review: {
-      type: Object as PropType<PersistentPlaceReview>,
-      required: true,
-    },
-  },
-  computed: {
-    lastModifiedDateLocalStr(): string {
-      return getLocalDateStr(this.review.dateModified);
-    },
-    reviewPageUrl(): string {
-      return `/myReviews/${this.review.id}`;
-    },
-  },
-});
+interface Props {
+  review: PersistentPlaceReviewWithPlace;
+}
+const props = defineProps<Props>();
+
+const lastModifiedDateLocalStr = computed(() => getLocalDateStr(props.review.dateModified));
+const reviewPageUrl = computed(() => `/myReviews/${props.review.id}`);
 </script>
 
 <style scoped>

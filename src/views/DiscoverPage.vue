@@ -34,9 +34,8 @@ import {
   RefresherCustomEvent,
   onIonViewWillEnter,
 } from '@ionic/vue';
-import { computed } from '@vue/reactivity';
 import { refresh } from 'ionicons/icons';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
 import AppHeader from '@/components/common/AppHeader.vue';

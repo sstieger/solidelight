@@ -1,38 +1,28 @@
 <template>
-  <ion-page>
-    <ion-content>
+  <IonPage>
+    <IonContent>
       <template v-if="place">
-        <no-place-reviews v-if="!place.reviews.length" />
-        <place-reviews-list v-else :reviews="place.reviews" />
+        <NoPlaceReviews v-if="!place.reviews.length" />
+        <PlaceReviewsList v-else :reviews="place.reviews" />
       </template>
-    </ion-content>
-  </ion-page>
+    </IonContent>
+  </IonPage>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonContent, IonPage } from '@ionic/vue';
-import { defineComponent } from '@vue/runtime-core';
-import { mapGetters } from 'vuex';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 
 import NoPlaceReviews from '@/components/places/NoPlaceReviews.vue';
 import PlaceReviewsList from '@/components/places/PlaceReviewsList.vue';
-import { Place } from '@/model/Place';
+import { SuggestedPlace } from '@/recommend/SuggestedPlace';
+import { WithReviews } from '@/recommend/SuggestedPlace/WithReviews';
+import { State } from '@/store/state';
 
-export default defineComponent({
-  components: {
-    IonContent,
-    IonPage,
-    NoPlaceReviews,
-    PlaceReviewsList,
-  },
-  computed: {
-    place(): Place | null {
-      return this.suggestedPlaceById(this.$route.params.id);
-    },
-    title(): string {
-      return this.place?.title ?? '';
-    },
-    ...mapGetters(['suggestedPlaceById']),
-  },
-});
+const route = useRoute();
+const store = useStore<State>();
+
+const place = computed<(SuggestedPlace & WithReviews) | null>(() => store.getters.suggestedPlaceById(route.params.id));
 </script>
