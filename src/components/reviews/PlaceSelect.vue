@@ -36,7 +36,7 @@ import { defineEmits, defineProps, ref, watch, withDefaults } from 'vue';
 import { useStore } from 'vuex';
 
 import CloseModalButton from '@/components/common/CloseModalButton.vue';
-import { mapPlatform } from '@/map/mapPlatform';
+import config from '@/config';
 import { Place } from '@/model/Place';
 import { State } from '@/store/state';
 import { showErrorToast } from '@/utils/app/notify/showErrorToast';
@@ -71,7 +71,7 @@ watch(placeSearchStr, async (newPlaceSearchStr: string): Promise<void> => {
     try {
       const lat = store.state.user.geolocationPosition?.coords.latitude ?? 0;
       const long = store.state.user.geolocationPosition?.coords.longitude ?? 0;
-      const mapPlaces = await autocompleteEatAndDrinkPlaces(mapPlatform, newPlaceSearchStr, lat, long);
+      const mapPlaces = await autocompleteEatAndDrinkPlaces(config.hereApiKey, newPlaceSearchStr, lat, long);
       selectablePlaces.value = mapPlaces.map((mapPlace) => {
         return {
           hereId: mapPlace.id,
@@ -97,7 +97,7 @@ const openSelectModal = (): void => {
 const selectPlace = async (place: Place): Promise<void> => {
   closeSelectModal();
   try {
-    const fullPlace = await lookupPlace(mapPlatform, place.hereId);
+    const fullPlace = await lookupPlace(config.hereApiKey, place.hereId);
     const selectedPlace: Omit<Place, 'id'> = {
       hereId: fullPlace.id,
       title: fullPlace.title,

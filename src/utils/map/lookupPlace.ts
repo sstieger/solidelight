@@ -1,13 +1,12 @@
-import H from '@here/maps-api-for-javascript';
-
 import { Place } from './Place';
+import { hereApiFetchConfig } from './hereApiFetchConfig';
 
-export async function lookupPlace(platform: H.service.Platform, id: string): Promise<Place> {
-  return new Promise((resolve, reject) => {
-    platform.getSearchService().lookup(
-      { id, lang: 'en-US' },
-      (result) => resolve(result as Place),
-      (err) => reject(err),
-    );
-  });
+export async function lookupPlace(apiKey: string, id: string): Promise<Place> {
+  const lookupRes = await fetch(
+    `https://lookup.search.hereapi.com/v1/lookup?apiKey=${encodeURIComponent(apiKey)}&id=${encodeURIComponent(
+      id,
+    )}&lang=en-US`,
+    hereApiFetchConfig,
+  );
+  return await lookupRes.json();
 }

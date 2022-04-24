@@ -1,5 +1,5 @@
+import config from '@/config';
 import { NUM_SUGGESTIONS, SUGGESTIONS_MAX_DISTANCE } from '@/constants';
-import { mapPlatform } from '@/map/mapPlatform';
 import { SuggestedPlace } from '@/recommend/SuggestedPlace';
 import { TasteProfile } from '@/recommend/TasteProfile';
 import { scorePlace } from '@/recommend/scorePlace';
@@ -14,7 +14,7 @@ export async function findSuggestedPlacesNearby(
   const realProfile: TasteProfile = profile ?? { baseTypes: {}, variationTypes: {}, createdAt: Date.now() };
   const likedFoodTypes = getLikedFoodTypesForPlacesRequest(realProfile);
   const nearbyPlaces = await fetchEatAndDrinkPlacesNearby(
-    mapPlatform,
+    config.hereApiKey,
     coords.latitude,
     coords.longitude,
     likedFoodTypes,
